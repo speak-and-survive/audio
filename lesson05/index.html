@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 5 — Buying Tickets | Speak and Survive in Japan</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito','M PLUS Rounded 1c',sans-serif;background:#f5f3ee;color:#2a2a28;font-size:15px;line-height:1.65}
+.page{max-width:800px;margin:0 auto;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.08);min-height:100vh}
+.lesson-header{background:#D85A30;display:flex;align-items:stretch;min-height:92px}
+.lesson-spine{background:#993C1D;color:#FAC775;font-size:11px;font-weight:800;letter-spacing:.1em;writing-mode:vertical-rl;padding:14px 10px;display:flex;align-items:center;justify-content:center;text-transform:uppercase;min-width:38px;flex-shrink:0}
+.lesson-header-body{padding:16px 20px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.lesson-title-main{font-size:23px;font-weight:900;color:#fff;line-height:1.2}
+.lesson-title-sub{font-size:13px;font-weight:600;color:#F5C4B3;margin-top:3px}
+.lesson-icon{background:#993C1D;display:flex;align-items:center;justify-content:center;padding:0 20px;flex-shrink:0;font-size:32px}
+.back-link{display:inline-block;color:#F5C4B3;font-size:12px;font-weight:700;text-decoration:none;margin-bottom:4px}
+.section{padding:20px 20px 8px}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:6px;padding-bottom:8px;border-bottom:2px solid #f0ece5}
+.section-badge{font-size:10px;font-weight:800;padding:4px 10px;border-radius:5px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.badge-coral{background:#D85A30;color:#fff}.badge-teal{background:#1D9E75;color:#fff}
+.badge-purple{background:#534AB7;color:#fff}.badge-amber{background:#BA7517;color:#fff}
+.badge-pink{background:#D4537E;color:#fff}.badge-blue{background:#185FA5;color:#fff}
+.section-title-text{font-size:15px;font-weight:800;color:#555;flex:1}
+.section-note{font-size:11px;color:#999;margin:0 0 10px;font-style:italic}
+.play-all{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #D85A30;color:#D85A30;font-family:inherit;font-size:11px;font-weight:800;border-radius:20px;padding:5px 14px;cursor:pointer;white-space:nowrap}
+.play-all.playing{background:#D85A30;color:#fff}
+.ph-list{display:flex;flex-direction:column}
+.ph-row{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px dashed #e0dbd0}
+.ph-row:last-child{border-bottom:none}
+.play{width:42px;height:42px;border-radius:50%;border:none;background:#1D9E75;color:#fff;font-size:15px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.play.playing{background:#D85A30}
+.ph-text{flex:1;min-width:0}
+.ph-roma{font-size:16px;font-weight:800;color:#1a1a18}
+.ph-en{font-size:12px;color:#888;font-style:italic;margin-top:1px}
+.ph-arrow{color:#1D9E75;font-weight:700}
+.speaker-tag{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;margin-bottom:3px}
+.tag-partner{background:#E6F1FB;color:#185FA5}.tag-rina{background:#FAECE7;color:#993C1D}
+.quiz-choices{font-size:13px;color:#555;margin-top:2px}
+details.answer{font-size:12px;margin-top:4px}
+details.answer summary{color:#534AB7;font-weight:700;cursor:pointer}
+details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
+.ans-en{font-size:11px;color:#888;font-style:italic;font-weight:600}
+.site-footer{padding:24px 20px;text-align:center;font-size:11px;color:#aaa}
+/* index */
+.index-hero{background:#D85A30;padding:34px 24px;text-align:center}
+.index-hero h1{font-size:26px;font-weight:900;color:#fff}
+.index-hero .sub{font-size:13px;color:#F5C4B3;font-weight:700;margin-top:4px}
+.toc{padding:20px;display:flex;flex-direction:column;gap:10px}
+.toc-card{display:flex;align-items:center;gap:14px;background:#f8f6f2;border:1.5px solid #e8e2d8;border-radius:12px;padding:12px 16px;text-decoration:none;color:inherit}
+.toc-card:active{background:#FFF4EF}
+.toc-emoji{font-size:28px;flex-shrink:0}
+.toc-num{font-size:10px;font-weight:800;color:#D85A30;text-transform:uppercase;letter-spacing:.08em}
+.toc-main{font-size:16px;font-weight:900;color:#1a1a18;line-height:1.3}
+.toc-sub{font-size:12px;color:#888}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="lesson-header">
+    <div class="lesson-spine">Lesson 5</div>
+    <div class="lesson-header-body">
+      <a class="back-link" href="../index.html">← All Lessons</a>
+      <div class="lesson-title-main">Buying Tickets 🎫</div>
+      <div class="lesson-title-sub">チケットを買う</div>
+    </div>
+    <div class="lesson-icon">🎫</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-coral">DIALOGUE</span>
+      <span class="section-title-text">Manga Dialogue</span>
+      <button class="play-all" data-src="l05_dialogue_all.mp3">▶ Play all</button>
+    </div>
+    <div class="ph-list">
+<div class="ph-row"><button class="play" data-src="l05_dialogue_01.mp3">▶</button><div class="ph-text"><span class="speaker-tag tag-rina">Rina</span><br><div class="ph-roma">Ichi-mai onegaishimasu</div><div class="ph-en">One ticket, please.</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_dialogue_02.mp3">▶</button><div class="ph-text"><span class="speaker-tag tag-partner">Staff</span><br><div class="ph-roma">Otona desu ka, gakusee desu ka?</div><div class="ph-en">Adult or student?</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_dialogue_03.mp3">▶</button><div class="ph-text"><span class="speaker-tag tag-rina">Rina</span><br><div class="ph-roma">Gakusee desu</div><div class="ph-en">I'm a student.</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_dialogue_04.mp3">▶</button><div class="ph-text"><span class="speaker-tag tag-partner">Staff</span><br><div class="ph-roma">Gakusee-shoo wa arimasu ka?</div><div class="ph-en">Do you have a student ID?</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_dialogue_05.mp3">▶</button><div class="ph-text"><span class="speaker-tag tag-rina">Rina</span><br><div class="ph-roma">Hai, doozo.</div><div class="ph-en">Yes, here you go.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-teal">SAY</span>
+      <span class="section-title-text">Phrases to Say</span>
+      <button class="play-all" data-src="l05_say_all.mp3">▶ Play all</button>
+    </div>
+    <p class="section-note">Each phrase plays twice: slow → natural speed.</p>
+    <div class="ph-list">
+<div class="ph-row"><button class="play" data-src="l05_say_01.mp3">▶</button><div class="ph-text"><div class="ph-roma">Ichi-mai onegaishimasu</div><div class="ph-en">One ticket, please.</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_say_02.mp3">▶</button><div class="ph-text"><div class="ph-roma">Ni-mai onegaishimasu</div><div class="ph-en">Two tickets, please.</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_say_03.mp3">▶</button><div class="ph-text"><div class="ph-roma">San-mai onegaishimasu</div><div class="ph-en">Three tickets, please.</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_say_04.mp3">▶</button><div class="ph-text"><div class="ph-roma">Gakusee desu</div><div class="ph-en">I'm a student.</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_say_05.mp3">▶</button><div class="ph-text"><div class="ph-roma">Ikura desu ka?</div><div class="ph-en">How much is it?</div></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-blue">HEAR</span>
+      <span class="section-title-text">Phrases You'll Hear</span>
+      <button class="play-all" data-src="l05_hear_all.mp3">▶ Play all</button>
+    </div>
+    <div class="ph-list">
+<div class="ph-row"><button class="play" data-src="l05_hear_01.mp3">▶</button><div class="ph-text"><div class="ph-roma">Otona desu ka, gakusee desu ka?</div><div class="ph-en">Adult or student?</div></div></div>
+<div class="ph-row"><button class="play" data-src="l05_hear_02.mp3">▶</button><div class="ph-text"><div class="ph-roma">Gakusee-shoo wa arimasu ka?</div><div class="ph-en">Do you have a student ID?</div></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-pink">PRACTICE</span>
+      <span class="section-title-text">Listen &amp; Respond</span>
+      <button class="play-all" data-src="l05_lr_all.mp3">▶ Play all</button>
+    </div>
+    <p class="section-note">Question → 3.5-second pause (say your answer!) → model answer.</p>
+    <div class="ph-list">
+<div class="ph-row"><button class="play" data-src="l05_lr_01.mp3">▶</button><div class="ph-text"><div class="ph-roma">Nan-mai desu ka?</div><div class="ph-en">How many tickets?</div><details class="answer"><summary>Show answer</summary><p>Ichi-mai onegaishimasu<br><span class="ans-en">One ticket, please.</span></p></details></div></div>
+    </div>
+  </div>
+
+<div class="site-footer">Speak and Survive in Japan</div>
+</div>
+<script>
+(function(){
+  var player = new Audio();
+  var current = null;
+  function stop(){
+    player.pause();
+    if(current){current.classList.remove('playing');current.textContent=current.dataset.icon||'▶';current=null;}
+  }
+  player.addEventListener('ended', stop);
+  document.querySelectorAll('[data-src]').forEach(function(btn){
+    btn.dataset.icon = btn.textContent;
+    btn.addEventListener('click', function(){
+      if(current===btn){stop();return;}
+      stop();
+      player.src = btn.dataset.src;
+      player.play();
+      btn.classList.add('playing');
+      btn.textContent = '⏸';
+      current = btn;
+    });
+  });
+})();
+</script>
+</body>
+</html>
