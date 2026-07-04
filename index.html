@@ -55,6 +55,8 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
 .saysee-result.success{color:#0F6E56}
 .saysee-result.tryagain,.saysee-result.listening{color:#6d5a45}
 .saysee-replay{margin-top:10px}
+.saysee-toplink{font-size:12px;color:#777;margin-top:10px;font-weight:700}
+.saysee-toplink a{color:#0F6E56;text-decoration:none}
 .site-footer{padding:24px 20px;text-align:center;font-size:11px;color:#aaa}
 /* index */
 .index-hero{background:#D85A30;padding:34px 24px;text-align:center}
@@ -76,7 +78,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
     <h1>Speak and Survive in Japan 🎧</h1>
     <div class="sub">Audio Lessons</div>
   </div>
-  <div class="toc">
+  <div class="toc" id="lessons">
     <a class="toc-card" href="lesson00/index.html">
       <span class="toc-emoji">💬</span>
       <span><span class="toc-num">Lesson 0</span>
@@ -157,6 +159,26 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
     </a>
   </div>
 
+  <div class="section saysee" id="say-it-all">
+    <div class="section-header">
+      <span class="section-badge badge-green">VOICE CHECK</span>
+      <span class="section-title-text">Say It &amp; See! — All Phrases</span>
+    </div>
+    <p class="section-note">Bonus: try any phrase from the whole book!</p>
+    <div class="saysee-panel">
+      <div class="saysee-actions">
+        <button class="saysee-mic" type="button">🎤 Try any phrase!</button>
+        <p class="saysee-unsupported" hidden>Voice check works on Chrome, Edge, or Safari.</p>
+      </div>
+      <div class="saysee-result" aria-live="polite"></div>
+      <div class="saysee-replay" hidden>
+        <a class="play-all" href="#lessons">Browse lesson audio</a>
+      </div>
+      <p class="saysee-hint">This is just for fun — recognition depends on your mic and browser, so don't worry if it misses!</p>
+      <script type="application/json" class="saysee-data">[{"ja": "すみません。", "kana": "すみません", "romaji": "Sumimasen", "src": "lesson00/l00_say_01.mp3", "lesson": 0}, {"ja": "ありがとうございます。", "kana": "ありがとうございます", "romaji": "Arigatoo gozaimasu", "src": "lesson00/l00_say_02.mp3", "lesson": 0}, {"ja": "もういちどお願いします。", "kana": "もういちどおねがいします", "romaji": "Moo ichido onegaishimasu", "src": "lesson00/l00_say_03.mp3", "lesson": 0}, {"ja": "ゆっくりお願いします。", "kana": "ゆっくりおねがいします", "romaji": "Yukkuri onegaishimasu", "src": "lesson00/l00_say_04.mp3", "lesson": 0}, {"ja": "英語でお願いします。", "kana": "えいごでおねがいします", "romaji": "Eego de onegaishimasu", "src": "lesson00/l00_say_05.mp3", "lesson": 0}, {"ja": "これは日本語で何ですか。", "kana": "これはにほんごでなんですか", "romaji": "Kore wa nihongo de nan desu ka?", "src": "lesson00/l00_say_06.mp3", "lesson": 0}, {"ja": "トイレはどこですか。", "kana": "といれはどこですか", "romaji": "Toire wa doko desu ka?", "src": "lesson00/l00_say_07.mp3", "lesson": 0}, {"ja": "大丈夫です。", "kana": "だいじょうぶです", "romaji": "Daijoobu desu", "src": "lesson00/l00_say_08.mp3", "lesson": 0}, {"ja": "ここ", "kana": "ここ", "romaji": "koko", "src": "lesson00/l00_words_01.mp3", "lesson": 0}, {"ja": "そこ", "kana": "そこ", "romaji": "soko", "src": "lesson00/l00_words_02.mp3", "lesson": 0}, {"ja": "あそこ", "kana": "あそこ", "romaji": "asoko", "src": "lesson00/l00_words_03.mp3", "lesson": 0}, {"ja": "どこ", "kana": "どこ", "romaji": "doko", "src": "lesson00/l00_words_04.mp3", "lesson": 0}, {"ja": "これ", "kana": "これ", "romaji": "kore", "src": "lesson00/l00_words_05.mp3", "lesson": 0}, {"ja": "それ", "kana": "それ", "romaji": "sore", "src": "lesson00/l00_words_06.mp3", "lesson": 0}, {"ja": "あれ", "kana": "あれ", "romaji": "are", "src": "lesson00/l00_words_07.mp3", "lesson": 0}, {"ja": "どれ", "kana": "どれ", "romaji": "dore", "src": "lesson00/l00_words_08.mp3", "lesson": 0}, {"ja": "ホテルまでお願いします。", "kana": "ほてるまでおねがいします", "romaji": "Hoteru made onegaishimasu", "src": "lesson01/l01_say_01.mp3", "lesson": 1}, {"ja": "ここまでお願いします。", "kana": "ここまでおねがいします", "romaji": "Koko made onegaishimasu", "src": "lesson01/l01_say_02.mp3", "lesson": 1}, {"ja": "カードでお願いします。", "kana": "かーどでおねがいします", "romaji": "Kaado de onegaishimasu", "src": "lesson01/l01_say_03.mp3", "lesson": 1}, {"ja": "現金でお願いします。", "kana": "げんきんでおねがいします", "romaji": "Genkin de onegaishimasu", "src": "lesson01/l01_say_04.mp3", "lesson": 1}, {"ja": "ありがとうございました。", "kana": "ありがとうございました", "romaji": "Arigatoo gozaimashita", "src": "lesson01/l01_say_05.mp3", "lesson": 1}, {"ja": "予約のリナです。", "kana": "よやくのりなです", "romaji": "Yoyaku no Rina desu", "src": "lesson02/l02_say_01.mp3", "lesson": 2}, {"ja": "チェックインをお願いします。", "kana": "ちぇっくいんをおねがいします", "romaji": "Chekkuin o onegaishimasu", "src": "lesson02/l02_say_02.mp3", "lesson": 2}, {"ja": "どうぞ。", "kana": "どうぞ", "romaji": "Doozo", "src": "lesson02/l02_say_03.mp3", "lesson": 2}, {"ja": "すみません。トイレはどこですか？", "kana": "すみませんといれはどこですか", "romaji": "Sumimasen. Toire wa doko desu ka?", "src": "lesson02/l02_say_04.mp3", "lesson": 2}, {"ja": "一人です。", "kana": "ひとりです", "romaji": "Hitori desu", "src": "lesson03/l03_say_02.mp3", "lesson": 3}, {"ja": "これをください。", "kana": "これをください", "romaji": "Kore o kudasai", "src": "lesson03/l03_say_03.mp3", "lesson": 3}, {"ja": "それをください。", "kana": "それをください", "romaji": "Sore o kudasai", "src": "lesson03/l03_say_04.mp3", "lesson": 3}, {"ja": "お会計をお願いします。", "kana": "おかいけいをおねがいします", "romaji": "Okaikee o onegaishimasu", "src": "lesson03/l03_say_05.mp3", "lesson": 3}, {"ja": "金閣寺に行きたいです。出口はどこですか？", "kana": "きんかくじにいきたいですでぐちはどこですか", "romaji": "Kinkakuji ni ikitai desu. Deguchi wa doko desu ka?", "src": "lesson04/l04_say_01.mp3", "lesson": 4}, {"ja": "北口はどこですか？", "kana": "きたぐちはどこですか", "romaji": "Kitaguchi wa doko desu ka?", "src": "lesson04/l04_say_02.mp3", "lesson": 4}, {"ja": "すみません、わかりません。", "kana": "すみませんわかりません", "romaji": "Sumimasen, wakarimasen", "src": "lesson04/l04_say_03.mp3", "lesson": 4}, {"ja": "一枚お願いします。", "kana": "いちまいおねがいします", "romaji": "Ichi-mai onegaishimasu", "src": "lesson05/l05_say_01.mp3", "lesson": 5}, {"ja": "二枚お願いします。", "kana": "にまいおねがいします", "romaji": "Ni-mai onegaishimasu", "src": "lesson05/l05_say_02.mp3", "lesson": 5}, {"ja": "三枚お願いします。", "kana": "さんまいおねがいします", "romaji": "San-mai onegaishimasu", "src": "lesson05/l05_say_03.mp3", "lesson": 5}, {"ja": "学生です。", "kana": "がくせいです", "romaji": "Gakusee desu", "src": "lesson05/l05_say_04.mp3", "lesson": 5}, {"ja": "いくらですか？", "kana": "いくらですか", "romaji": "Ikura desu ka?", "src": "lesson05/l05_say_05.mp3", "lesson": 5}, {"ja": "これを三個ください。", "kana": "これをさんこください", "romaji": "Kore o san-ko kudasai", "src": "lesson06/l06_say_01.mp3", "lesson": 6}, {"ja": "賞味期限は？", "kana": "しょうみきげんは", "romaji": "Shoomikigen wa?", "src": "lesson06/l06_say_04.mp3", "lesson": 6}, {"ja": "卵は入っていますか？", "kana": "たまごははいっていますか", "romaji": "Tamago wa haitte imasu ka?", "src": "lesson07/l07_say_01.mp3", "lesson": 7}, {"ja": "卵アレルギーです。", "kana": "たまごあれるぎーです", "romaji": "Tamago arerugii desu", "src": "lesson07/l07_say_02.mp3", "lesson": 7}, {"ja": "じゃ、結構です。", "kana": "じゃけっこうです", "romaji": "Ja, kekkoo desu", "src": "lesson07/l07_say_03.mp3", "lesson": 7}, {"ja": "60分、お願いします。", "kana": "60ふんおねがいします", "romaji": "60-pun, onegaishimasu", "src": "lesson08/l08_say_01.mp3", "lesson": 8}, {"ja": "足が痛いです。", "kana": "あしがいたいです", "romaji": "Ashi ga itai desu", "src": "lesson08/l08_say_02.mp3", "lesson": 8}, {"ja": "いいです。", "kana": "いいです", "romaji": "Ii desu", "src": "lesson08/l08_say_03.mp3", "lesson": 8}, {"ja": "もっと強くお願いします。", "kana": "もっとつよくおねがいします", "romaji": "Motto tsuyoku onegaishimasu", "src": "lesson08/l08_say_04.mp3", "lesson": 8}, {"ja": "もっと弱くお願いします。", "kana": "もっとよわくおねがいします", "romaji": "Motto yowaku onegaishimasu", "src": "lesson08/l08_say_05.mp3", "lesson": 8}, {"ja": "痛いです！", "kana": "いたいです", "romaji": "Itai desu!", "src": "lesson08/l08_say_06.mp3", "lesson": 8}, {"ja": "足です。", "kana": "あしです", "romaji": "Ashi desu.", "src": "lesson08/l08_say_07.mp3", "lesson": 8}, {"ja": "すみません。傘を忘れました。", "kana": "すみませんかさをわすれました", "romaji": "Sumimasen. Kasa o wasuremashita.", "src": "lesson09/l09_say_01.mp3", "lesson": 9}, {"ja": "黒です。", "kana": "くろです", "romaji": "Kuro desu.", "src": "lesson09/l09_say_02.mp3", "lesson": 9}, {"ja": "今日です。", "kana": "きょうです", "romaji": "Kyoo desu.", "src": "lesson09/l09_say_03.mp3", "lesson": 9}, {"ja": "切手はありますか？", "kana": "きってはありますか", "romaji": "Kitte wa arimasu ka?", "src": "lesson10/l10_say_01.mp3", "lesson": 10}, {"ja": "金閣寺に行きますか？", "kana": "きんかくじにいきますか", "romaji": "Kinkakuji ni ikimasu ka?", "src": "lesson11/l11_say_01.mp3", "lesson": 11}, {"ja": "金閣寺道で降ります。", "kana": "きんかくじみちでおります", "romaji": "Kinkakuji-michi de orimasu", "src": "lesson11/l11_say_02.mp3", "lesson": 11}, {"ja": "はじめまして。リナです。", "kana": "はじめましてりなです", "romaji": "Hajimemashite. Rina desu.", "src": "lesson12/l12_say_01.mp3", "lesson": 12}, {"ja": "ドイツから来ました。", "kana": "どいつからきました", "romaji": "Doitsu kara kimashita.", "src": "lesson12/l12_say_02.mp3", "lesson": 12}, {"ja": "アニメが好きです。", "kana": "あにめがすきです", "romaji": "Anime ga suki desu.", "src": "lesson12/l12_say_03.mp3", "lesson": 12}, {"ja": "はるとさんは？", "kana": "はるとさんは", "romaji": "Haruto-san wa?", "src": "lesson12/l12_say_04.mp3", "lesson": 12}]</script>
+    </div>
+  </div>
+
 <div class="site-footer">Speak and Survive in Japan</div>
 </div>
 <script>
@@ -168,7 +190,9 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
     if(current){current.classList.remove('playing');current.textContent=current.dataset.icon||'▶';current=null;}
   }
   player.addEventListener('ended', stop);
-  document.querySelectorAll('[data-src]').forEach(function(btn){
+  function bindPlayButton(btn){
+    if(btn.dataset.bound){return;}
+    btn.dataset.bound = '1';
     btn.dataset.icon = btn.textContent;
     btn.addEventListener('click', function(){
       if(current===btn){stop();return;}
@@ -179,10 +203,68 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
       btn.textContent = '⏸';
       current = btn;
     });
-  });
-  function normalizeSpeech(text){
-    return (text||'').toString().toLowerCase()
+  }
+  document.querySelectorAll('[data-src]').forEach(bindPlayButton);
+  // W3/W4 regression cases checked against this normalization:
+  // 予約の里奈です / 1人です / 1枚お願いします / これを3個ください /
+  // これを3個下さい / ひとりです / じゃあ結構です /
+  // はじめまして里奈です / 晴人さんは / 60分お願いします
+  var digitToKanji = {'0':'〇','1':'一','2':'二','3':'三','4':'四','5':'五','6':'六','7':'七','8':'八','9':'九'};
+  var kanjiToDigit = {'〇':'0','零':'0','一':'1','二':'2','三':'3','四':'4','五':'5','六':'6','七':'7','八':'8','九':'9'};
+  function escapeHtml(text){
+    return (text||'').toString().replace(/[&<>"']/g, function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+  function kataToHira(text){
+    return (text||'').replace(/[ァ-ヶ]/g, function(ch){
+      return String.fromCharCode(ch.charCodeAt(0) - 0x60);
+    });
+  }
+  function softenCommonKanji(text){
+    return (text||'')
+      .replace(/下さい/g,'ください')
+      .replace(/有ります/g,'あります')
+      .replace(/あります/g,'あります')
+      .replace(/居ます/g,'います')
+      .replace(/御願い/g,'お願い')
+      .replace(/下さいました/g,'くださいました');
+  }
+  function normalizeSpeechBase(text){
+    return kataToHira(softenCommonKanji((text||'').toString())).toLowerCase()
+      .replace(/里奈|莉奈|りな|リナ/g,'リナ')
+      .replace(/春人|晴人|陽斗|悠斗|遥斗|温人|暖人|大翔|ハルト|はると/g,'はると')
+      .replace(/じゃあ|じゃー/g,'じゃ')
       .replace(/[\s\u3000。、，,.！？!?・･「」『』（）()［］\[\]【】]/g,'');
+  }
+  function replaceDigitsWithKanji(text){
+    return text.replace(/[0-9]/g, function(ch){return digitToKanji[ch] || ch;});
+  }
+  function replaceKanjiWithDigits(text){
+    return text.replace(/[〇零一二三四五六七八九]/g, function(ch){return kanjiToDigit[ch] || ch;});
+  }
+  function kanaKey(text){
+    return normalizeSpeechBase(text)
+      .replace(/一人/g,'ひとり')
+      .replace(/一枚/g,'いちまい')
+      .replace(/二枚/g,'にまい')
+      .replace(/三枚/g,'さんまい')
+      .replace(/三個/g,'さんこ')
+      .replace(/結構/g,'けっこう')
+      .replace(/予約/g,'よやく')
+      .replace(/お願い/g,'おねがい');
+  }
+  function speechKeys(text){
+    var base = normalizeSpeechBase(text);
+    var kana = kanaKey(text);
+    var keys = [base, replaceDigitsWithKanji(base), replaceKanjiWithDigits(base),
+      kana, replaceDigitsWithKanji(kana), replaceKanjiWithDigits(kana)];
+    var seen = {};
+    return keys.filter(function(key){
+      if(!key || seen[key]){return false;}
+      seen[key] = true;
+      return true;
+    });
   }
   function initSayItAndSee(){
     var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -195,8 +277,14 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
       var entries = [];
       try{ entries = JSON.parse(dataEl.textContent || '[]'); }catch(e){}
       var byPhrase = {};
+      var searchable = [];
       entries.forEach(function(entry){
-        byPhrase[normalizeSpeech(entry.ja)] = entry;
+        var keys = speechKeys(entry.ja);
+        if(entry.kana){keys = keys.concat(speechKeys(entry.kana));}
+        keys.forEach(function(key){
+          if(!byPhrase[key]){byPhrase[key] = entry;}
+          searchable.push({key:key, entry:entry});
+        });
       });
       if(!Recognition || !entries.length){
         mic.hidden = true;
@@ -210,6 +298,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
       mic.addEventListener('click', function(){
         stop();
         replay.hidden = true;
+        replay.innerHTML = '';
         result.className = 'saysee-result listening';
         result.textContent = 'Listening...';
         mic.disabled = true;
@@ -226,25 +315,68 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         if(event.results && event.results[0] && event.results[0][0]){
           transcript = event.results[0][0].transcript || '';
         }
-        var match = byPhrase[normalizeSpeech(transcript)];
+        console.log('Say It & See heard:', transcript);
+        var match = null;
+        speechKeys(transcript).some(function(key){
+          match = byPhrase[key] || null;
+          return !!match;
+        });
         if(match){
           result.className = 'saysee-result success';
           result.textContent = '✓ Recognized: ' + match.romaji + ' — Nice!';
         }else{
+          var suggestion = closestPhrase(transcript, searchable);
           result.className = 'saysee-result tryagain';
-          result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
-          replay.hidden = false;
+          if(suggestion){
+            result.innerHTML = 'Close! Did you mean: ' + escapeHtml(suggestion.romaji) + '?';
+            replay.innerHTML = '<button class="play-all" data-src="' + escapeHtml(suggestion.src) + '">▶ Listen to that phrase</button>';
+            bindPlayButton(replay.querySelector('[data-src]'));
+            replay.hidden = false;
+          }else{
+            result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
+            replay.hidden = true;
+          }
         }
       });
       recognition.addEventListener('error', function(){
         result.className = 'saysee-result tryagain';
         result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
-        replay.hidden = false;
+        replay.hidden = true;
       });
       recognition.addEventListener('end', function(){
         mic.disabled = false;
       });
     });
+  }
+  function editDistance(a, b){
+    a = a || '';
+    b = b || '';
+    var prev = [];
+    for(var j=0;j<=b.length;j++){prev[j]=j;}
+    for(var i=1;i<=a.length;i++){
+      var cur = [i];
+      for(var j2=1;j2<=b.length;j2++){
+        var cost = a.charAt(i-1) === b.charAt(j2-1) ? 0 : 1;
+        cur[j2] = Math.min(prev[j2]+1, cur[j2-1]+1, prev[j2-1]+cost);
+      }
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function closestPhrase(transcript, searchable){
+    var heardKeys = speechKeys(transcript);
+    var best = null;
+    heardKeys.forEach(function(heard){
+      searchable.forEach(function(candidate){
+        var maxLen = Math.max(heard.length, candidate.key.length, 1);
+        var score = 1 - (editDistance(heard, candidate.key) / maxLen);
+        if(!best || score > best.score){
+          best = {score:score, entry:candidate.entry};
+        }
+      });
+    });
+    if(best && best.score >= 0.55){return best.entry;}
+    return null;
   }
   initSayItAndSee();
 })();

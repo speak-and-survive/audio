@@ -55,6 +55,8 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
 .saysee-result.success{color:#0F6E56}
 .saysee-result.tryagain,.saysee-result.listening{color:#6d5a45}
 .saysee-replay{margin-top:10px}
+.saysee-toplink{font-size:12px;color:#777;margin-top:10px;font-weight:700}
+.saysee-toplink a{color:#0F6E56;text-decoration:none}
 .site-footer{padding:24px 20px;text-align:center;font-size:11px;color:#aaa}
 /* index */
 .index-hero{background:#D85A30;padding:34px 24px;text-align:center}
@@ -170,7 +172,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         <button class="play-all" data-src="l10_say_all.mp3">▶ Listen to Phrases to Say</button>
       </div>
       <p class="saysee-hint">This is just for fun — recognition depends on your mic and browser, so don't worry if it misses!</p>
-      <script type="application/json" class="saysee-data">[{"ja": "切手はありますか？", "romaji": "Kitte wa arimasu ka?", "src": "l10_say_01.mp3"}]</script>
+      <script type="application/json" class="saysee-data">[{"ja": "切手はありますか？", "kana": "きってはありますか", "romaji": "Kitte wa arimasu ka?", "src": "l10_say_01.mp3"}]</script>
     </div>
   </div>
 
@@ -185,7 +187,9 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
     if(current){current.classList.remove('playing');current.textContent=current.dataset.icon||'▶';current=null;}
   }
   player.addEventListener('ended', stop);
-  document.querySelectorAll('[data-src]').forEach(function(btn){
+  function bindPlayButton(btn){
+    if(btn.dataset.bound){return;}
+    btn.dataset.bound = '1';
     btn.dataset.icon = btn.textContent;
     btn.addEventListener('click', function(){
       if(current===btn){stop();return;}
@@ -196,10 +200,68 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
       btn.textContent = '⏸';
       current = btn;
     });
-  });
-  function normalizeSpeech(text){
-    return (text||'').toString().toLowerCase()
+  }
+  document.querySelectorAll('[data-src]').forEach(bindPlayButton);
+  // W3/W4 regression cases checked against this normalization:
+  // 予約の里奈です / 1人です / 1枚お願いします / これを3個ください /
+  // これを3個下さい / ひとりです / じゃあ結構です /
+  // はじめまして里奈です / 晴人さんは / 60分お願いします
+  var digitToKanji = {'0':'〇','1':'一','2':'二','3':'三','4':'四','5':'五','6':'六','7':'七','8':'八','9':'九'};
+  var kanjiToDigit = {'〇':'0','零':'0','一':'1','二':'2','三':'3','四':'4','五':'5','六':'6','七':'7','八':'8','九':'9'};
+  function escapeHtml(text){
+    return (text||'').toString().replace(/[&<>"']/g, function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+  function kataToHira(text){
+    return (text||'').replace(/[ァ-ヶ]/g, function(ch){
+      return String.fromCharCode(ch.charCodeAt(0) - 0x60);
+    });
+  }
+  function softenCommonKanji(text){
+    return (text||'')
+      .replace(/下さい/g,'ください')
+      .replace(/有ります/g,'あります')
+      .replace(/あります/g,'あります')
+      .replace(/居ます/g,'います')
+      .replace(/御願い/g,'お願い')
+      .replace(/下さいました/g,'くださいました');
+  }
+  function normalizeSpeechBase(text){
+    return kataToHira(softenCommonKanji((text||'').toString())).toLowerCase()
+      .replace(/里奈|莉奈|りな|リナ/g,'リナ')
+      .replace(/春人|晴人|陽斗|悠斗|遥斗|温人|暖人|大翔|ハルト|はると/g,'はると')
+      .replace(/じゃあ|じゃー/g,'じゃ')
       .replace(/[\s\u3000。、，,.！？!?・･「」『』（）()［］\[\]【】]/g,'');
+  }
+  function replaceDigitsWithKanji(text){
+    return text.replace(/[0-9]/g, function(ch){return digitToKanji[ch] || ch;});
+  }
+  function replaceKanjiWithDigits(text){
+    return text.replace(/[〇零一二三四五六七八九]/g, function(ch){return kanjiToDigit[ch] || ch;});
+  }
+  function kanaKey(text){
+    return normalizeSpeechBase(text)
+      .replace(/一人/g,'ひとり')
+      .replace(/一枚/g,'いちまい')
+      .replace(/二枚/g,'にまい')
+      .replace(/三枚/g,'さんまい')
+      .replace(/三個/g,'さんこ')
+      .replace(/結構/g,'けっこう')
+      .replace(/予約/g,'よやく')
+      .replace(/お願い/g,'おねがい');
+  }
+  function speechKeys(text){
+    var base = normalizeSpeechBase(text);
+    var kana = kanaKey(text);
+    var keys = [base, replaceDigitsWithKanji(base), replaceKanjiWithDigits(base),
+      kana, replaceDigitsWithKanji(kana), replaceKanjiWithDigits(kana)];
+    var seen = {};
+    return keys.filter(function(key){
+      if(!key || seen[key]){return false;}
+      seen[key] = true;
+      return true;
+    });
   }
   function initSayItAndSee(){
     var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -212,8 +274,14 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
       var entries = [];
       try{ entries = JSON.parse(dataEl.textContent || '[]'); }catch(e){}
       var byPhrase = {};
+      var searchable = [];
       entries.forEach(function(entry){
-        byPhrase[normalizeSpeech(entry.ja)] = entry;
+        var keys = speechKeys(entry.ja);
+        if(entry.kana){keys = keys.concat(speechKeys(entry.kana));}
+        keys.forEach(function(key){
+          if(!byPhrase[key]){byPhrase[key] = entry;}
+          searchable.push({key:key, entry:entry});
+        });
       });
       if(!Recognition || !entries.length){
         mic.hidden = true;
@@ -227,6 +295,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
       mic.addEventListener('click', function(){
         stop();
         replay.hidden = true;
+        replay.innerHTML = '';
         result.className = 'saysee-result listening';
         result.textContent = 'Listening...';
         mic.disabled = true;
@@ -243,25 +312,68 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         if(event.results && event.results[0] && event.results[0][0]){
           transcript = event.results[0][0].transcript || '';
         }
-        var match = byPhrase[normalizeSpeech(transcript)];
+        console.log('Say It & See heard:', transcript);
+        var match = null;
+        speechKeys(transcript).some(function(key){
+          match = byPhrase[key] || null;
+          return !!match;
+        });
         if(match){
           result.className = 'saysee-result success';
           result.textContent = '✓ Recognized: ' + match.romaji + ' — Nice!';
         }else{
+          var suggestion = closestPhrase(transcript, searchable);
           result.className = 'saysee-result tryagain';
-          result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
-          replay.hidden = false;
+          if(suggestion){
+            result.innerHTML = 'Close! Did you mean: ' + escapeHtml(suggestion.romaji) + '?';
+            replay.innerHTML = '<button class="play-all" data-src="' + escapeHtml(suggestion.src) + '">▶ Listen to that phrase</button>';
+            bindPlayButton(replay.querySelector('[data-src]'));
+            replay.hidden = false;
+          }else{
+            result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
+            replay.hidden = true;
+          }
         }
       });
       recognition.addEventListener('error', function(){
         result.className = 'saysee-result tryagain';
         result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
-        replay.hidden = false;
+        replay.hidden = true;
       });
       recognition.addEventListener('end', function(){
         mic.disabled = false;
       });
     });
+  }
+  function editDistance(a, b){
+    a = a || '';
+    b = b || '';
+    var prev = [];
+    for(var j=0;j<=b.length;j++){prev[j]=j;}
+    for(var i=1;i<=a.length;i++){
+      var cur = [i];
+      for(var j2=1;j2<=b.length;j2++){
+        var cost = a.charAt(i-1) === b.charAt(j2-1) ? 0 : 1;
+        cur[j2] = Math.min(prev[j2]+1, cur[j2-1]+1, prev[j2-1]+cost);
+      }
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function closestPhrase(transcript, searchable){
+    var heardKeys = speechKeys(transcript);
+    var best = null;
+    heardKeys.forEach(function(heard){
+      searchable.forEach(function(candidate){
+        var maxLen = Math.max(heard.length, candidate.key.length, 1);
+        var score = 1 - (editDistance(heard, candidate.key) / maxLen);
+        if(!best || score > best.score){
+          best = {score:score, entry:candidate.entry};
+        }
+      });
+    });
+    if(best && best.score >= 0.55){return best.entry;}
+    return null;
   }
   initSayItAndSee();
 })();
