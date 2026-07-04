@@ -22,6 +22,7 @@ body{font-family:'Nunito','M PLUS Rounded 1c',sans-serif;background:#f5f3ee;colo
 .badge-coral{background:#D85A30;color:#fff}.badge-teal{background:#1D9E75;color:#fff}
 .badge-purple{background:#534AB7;color:#fff}.badge-amber{background:#BA7517;color:#fff}
 .badge-pink{background:#D4537E;color:#fff}.badge-blue{background:#185FA5;color:#fff}
+.badge-green{background:#0F6E56;color:#fff}
 .section-title-text{font-size:15px;font-weight:800;color:#555;flex:1}
 .section-note{font-size:11px;color:#999;margin:0 0 10px;font-style:italic}
 .play-all{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #D85A30;color:#D85A30;font-family:inherit;font-size:11px;font-weight:800;border-radius:20px;padding:5px 14px;cursor:pointer;white-space:nowrap}
@@ -44,6 +45,16 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
 .ans-en{font-size:11px;color:#888;font-style:italic;font-weight:600}
 .ph-blank{font-size:16px;font-weight:800;color:#1a1a18;letter-spacing:.05em}
 .rp-stage{text-align:center;padding:12px 0 10px;font-size:12px;color:#B0895E;font-style:italic;font-weight:700}
+.saysee-panel{background:#f8f6f2;border:1.5px solid #e8e2d8;border-radius:8px;padding:14px}
+.saysee-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.saysee-mic{border:none;background:#0F6E56;color:#fff;font-family:inherit;font-size:14px;font-weight:900;border-radius:24px;padding:10px 18px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.saysee-mic:disabled{opacity:.65;cursor:wait}
+.saysee-hint{font-size:11px;color:#888;margin-top:10px;font-style:italic}
+.saysee-unsupported{font-size:12px;color:#777;font-weight:700}
+.saysee-result{font-size:13px;font-weight:800;margin-top:12px;min-height:22px}
+.saysee-result.success{color:#0F6E56}
+.saysee-result.tryagain,.saysee-result.listening{color:#6d5a45}
+.saysee-replay{margin-top:10px}
 .site-footer{padding:24px 20px;text-align:center;font-size:11px;color:#aaa}
 /* index */
 .index-hero{background:#D85A30;padding:34px 24px;text-align:center}
@@ -146,6 +157,26 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
     </div>
   </div>
 
+  <div class="section saysee">
+    <div class="section-header">
+      <span class="section-badge badge-green">VOICE CHECK</span>
+      <span class="section-title-text">Say It &amp; See!</span>
+    </div>
+    <p class="section-note">You can check the phrases from <em>Phrases to Say</em> above.</p>
+    <div class="saysee-panel">
+      <div class="saysee-actions">
+        <button class="saysee-mic" type="button">🎤 Try any phrase!</button>
+        <p class="saysee-unsupported" hidden>Voice check works on Chrome, Edge, or Safari.</p>
+      </div>
+      <div class="saysee-result" aria-live="polite"></div>
+      <div class="saysee-replay" hidden>
+        <button class="play-all" data-src="l01_say_all.mp3">▶ Listen to Phrases to Say</button>
+      </div>
+      <p class="saysee-hint">This is just for fun — recognition depends on your mic and browser, so don't worry if it misses!</p>
+      <script type="application/json" class="saysee-data">[{"ja": "ホテルまでお願いします。", "romaji": "Hoteru made onegaishimasu", "src": "l01_say_01.mp3"}, {"ja": "ここまでお願いします。", "romaji": "Koko made onegaishimasu", "src": "l01_say_02.mp3"}, {"ja": "カードでお願いします。", "romaji": "Kaado de onegaishimasu", "src": "l01_say_03.mp3"}, {"ja": "現金でお願いします。", "romaji": "Genkin de onegaishimasu", "src": "l01_say_04.mp3"}, {"ja": "ありがとうございました。", "romaji": "Arigatoo gozaimashita", "src": "l01_say_05.mp3"}]</script>
+    </div>
+  </div>
+
 <div class="site-footer">Speak and Survive in Japan</div>
 </div>
 <script>
@@ -169,6 +200,73 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
       current = btn;
     });
   });
+  function normalizeSpeech(text){
+    return (text||'').toString().toLowerCase()
+      .replace(/[\s\u3000。、，,.！？!?・･「」『』（）()［］\[\]【】]/g,'');
+  }
+  function initSayItAndSee(){
+    var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    document.querySelectorAll('.saysee').forEach(function(section){
+      var dataEl = section.querySelector('.saysee-data');
+      var mic = section.querySelector('.saysee-mic');
+      var unsupported = section.querySelector('.saysee-unsupported');
+      var result = section.querySelector('.saysee-result');
+      var replay = section.querySelector('.saysee-replay');
+      var entries = [];
+      try{ entries = JSON.parse(dataEl.textContent || '[]'); }catch(e){}
+      var byPhrase = {};
+      entries.forEach(function(entry){
+        byPhrase[normalizeSpeech(entry.ja)] = entry;
+      });
+      if(!Recognition || !entries.length){
+        mic.hidden = true;
+        unsupported.hidden = false;
+        return;
+      }
+      var recognition = new Recognition();
+      recognition.lang = 'ja-JP';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      mic.addEventListener('click', function(){
+        stop();
+        replay.hidden = true;
+        result.className = 'saysee-result listening';
+        result.textContent = 'Listening...';
+        mic.disabled = true;
+        try{
+          recognition.start();
+        }catch(e){
+          mic.disabled = false;
+          result.className = 'saysee-result tryagain';
+          result.textContent = 'Please wait a moment and try again.';
+        }
+      });
+      recognition.addEventListener('result', function(event){
+        var transcript = '';
+        if(event.results && event.results[0] && event.results[0][0]){
+          transcript = event.results[0][0].transcript || '';
+        }
+        var match = byPhrase[normalizeSpeech(transcript)];
+        if(match){
+          result.className = 'saysee-result success';
+          result.textContent = '✓ Recognized: ' + match.romaji + ' — Nice!';
+        }else{
+          result.className = 'saysee-result tryagain';
+          result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
+          replay.hidden = false;
+        }
+      });
+      recognition.addEventListener('error', function(){
+        result.className = 'saysee-result tryagain';
+        result.textContent = "Hmm, I couldn't catch that — listen once more and try again!";
+        replay.hidden = false;
+      });
+      recognition.addEventListener('end', function(){
+        mic.disabled = false;
+      });
+    });
+  }
+  initSayItAndSee();
 })();
 </script>
 </body>
