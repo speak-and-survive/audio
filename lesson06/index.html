@@ -233,6 +233,9 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
   // はじめまして里奈です / 晴人さんは / 60分お願いします
   var digitToKanji = {'0':'〇','1':'一','2':'二','3':'三','4':'四','5':'五','6':'六','7':'七','8':'八','9':'九'};
   var kanjiToDigit = {'〇':'0','零':'0','一':'1','二':'2','三':'3','四':'4','五':'5','六':'6','七':'7','八':'8','九':'9'};
+  // W5: ビルド時に照合コーパスから生成した「漢字トークン→かな読み」辞書（最長一致で適用）。
+  var KANJI2KANA = {"願い": "ねがい", "英語": "えいご", "日本語": "にほんご", "何で": "なんで", "大丈夫": "だいじょうぶ", "現金": "げんきん", "予約": "よやく", "一人": "ひとり", "会計": "かいけい", "金閣寺": "きんかくじ", "行き": "いき", "出口": "でぐち", "北口": "きたぐち", "一枚": "いちまい", "二枚": "にまい", "三枚": "さんまい", "学生": "がくせい", "三": "さん", "個": "こ", "賞味期限": "しょうみきげん", "卵": "たまご", "入っ": "はいっ", "結構": "けっこう", "分": "ふん", "足": "あし", "痛い": "いたい", "強く": "つよく", "弱く": "よわく", "傘": "かさ", "忘れ": "わすれ", "黒": "くろ", "今日": "きょう", "切手": "きって", "道": "みち", "降り": "おり", "来ま": "きま", "好き": "すき", "一度": "いちど"};
+  var KANJI2KANA_KEYS = ["賞味期限", "日本語", "大丈夫", "金閣寺", "願い", "英語", "何で", "現金", "予約", "一人", "会計", "行き", "出口", "北口", "一枚", "二枚", "三枚", "学生", "入っ", "結構", "痛い", "強く", "弱く", "忘れ", "今日", "切手", "降り", "来ま", "好き", "一度", "三", "個", "卵", "分", "足", "傘", "黒", "道"];
   function escapeHtml(text){
     return (text||'').toString().replace(/[&<>"']/g, function(ch){
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
@@ -265,22 +268,30 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
   function replaceKanjiWithDigits(text){
     return text.replace(/[〇零一二三四五六七八九]/g, function(ch){return kanjiToDigit[ch] || ch;});
   }
+  function kanjiToKana(text){
+    // KANJI2KANA_KEYS はトークン長の降順。最長一致でかな化する（W5一般解）。
+    var s = text || '';
+    for(var i=0;i<KANJI2KANA_KEYS.length;i++){
+      var k = KANJI2KANA_KEYS[i];
+      if(s.indexOf(k) !== -1){
+        s = s.split(k).join(KANJI2KANA[k]);
+      }
+    }
+    return s;
+  }
   function kanaKey(text){
-    return normalizeSpeechBase(text)
-      .replace(/一人/g,'ひとり')
-      .replace(/一枚/g,'いちまい')
-      .replace(/二枚/g,'にまい')
-      .replace(/三枚/g,'さんまい')
-      .replace(/三個/g,'さんこ')
-      .replace(/結構/g,'けっこう')
-      .replace(/予約/g,'よやく')
-      .replace(/お願い/g,'おねがい');
+    return kanjiToKana(normalizeSpeechBase(text));
   }
   function speechKeys(text){
+    // 数字↔漢数字のゆれ各形に対して かな化 を合成する（W5）。
+    // これにより「1度→一度→いちど」のように数字表記でも漢字→かな辞書が効く。
     var base = normalizeSpeechBase(text);
-    var kana = kanaKey(text);
-    var keys = [base, replaceDigitsWithKanji(base), replaceKanjiWithDigits(base),
-      kana, replaceDigitsWithKanji(kana), replaceKanjiWithDigits(kana)];
+    var forms = [base, replaceDigitsWithKanji(base), replaceKanjiWithDigits(base)];
+    var keys = [];
+    forms.forEach(function(form){
+      var kana = kanjiToKana(form);
+      keys.push(form, kana, replaceDigitsWithKanji(kana), replaceKanjiWithDigits(kana));
+    });
     var seen = {};
     return keys.filter(function(key){
       if(!key || seen[key]){return false;}
