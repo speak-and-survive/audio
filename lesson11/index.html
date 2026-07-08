@@ -330,6 +330,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         return;
       }
       var recognition = new Recognition();
+      var okCounted = false;
       recognition.lang = 'ja-JP';
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
@@ -342,6 +343,10 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         mic.disabled = true;
         try{
           recognition.start();
+          okCounted = false;
+          if(window.goatcounter && window.goatcounter.count){
+            window.goatcounter.count({path:'saysee-start', title:'Say It & See start', event:true});
+          }
         }catch(e){
           mic.disabled = false;
           result.className = 'saysee-result tryagain';
@@ -362,6 +367,10 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         if(match){
           result.className = 'saysee-result success';
           result.textContent = '✓ Recognized: ' + match.romaji + ' — Nice!';
+          if(!okCounted && window.goatcounter && window.goatcounter.count){
+            window.goatcounter.count({path:'saysee-ok', title:'Say It & See OK', event:true});
+            okCounted = true;
+          }
         }else{
           var suggestion = closestPhrase(transcript, searchable);
           result.className = 'saysee-result tryagain';
