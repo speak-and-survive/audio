@@ -343,7 +343,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         if(entry.kana){keys = keys.concat(speechKeys(entry.kana));}
         keys.forEach(function(key){
           if(!byPhrase[key]){byPhrase[key] = entry;}
-          searchable.push({key:key, entry:entry});
+          if(entry.src){searchable.push({key:key, entry:entry});}
         });
       });
       if(!Recognition || !entries.length){

@@ -194,7 +194,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         <button class="play-all" data-src="l04_say_all.mp3">▶ Listen to Phrases to Say</button>
       </div>
       <p class="saysee-hint">This is just for fun — recognition depends on your mic and browser, so don't worry if it misses!</p>
-      <script type="application/json" class="saysee-data">[{"ja": "金閣寺に行きたいです。", "kana": "きんかくじにいきたいです", "romaji": "Kinkakuji ni ikitai desu", "src": "l04_say_01.mp3"}, {"ja": "北口はどこですか？", "kana": "きたぐちはどこですか", "romaji": "Kitaguchi wa doko desu ka?", "src": "l04_say_02.mp3"}, {"ja": "すみません、わかりません。", "kana": "すみませんわかりません", "romaji": "Sumimasen, wakarimasen", "src": "l04_say_03.mp3"}, {"ja": "出口", "kana": "でぐち", "romaji": "Deguchi", "src": "l04_words_01.mp3"}, {"ja": "北口", "kana": "きたぐち", "romaji": "Kitaguchi", "src": "l04_words_02.mp3"}, {"ja": "南口", "kana": "みなみぐち", "romaji": "Minamiguchi", "src": "l04_words_03.mp3"}, {"ja": "東口", "kana": "ひがしぐち", "romaji": "Higashiguchi", "src": "l04_words_04.mp3"}, {"ja": "西口", "kana": "にしぐち", "romaji": "Nishiguchi", "src": "l04_words_05.mp3"}, {"ja": "トイレ", "kana": "といれ", "romaji": "Toire", "src": "l04_words_06.mp3"}, {"ja": "エレベーター", "kana": "えれべーたー", "romaji": "Erebeetaa", "src": "l04_words_07.mp3"}, {"ja": "コインロッカー", "kana": "こいんろっかー", "romaji": "Koin-rokkaa", "src": "l04_words_08.mp3"}, {"ja": "まっすぐ", "kana": "まっすぐ", "romaji": "Massugu", "src": "l04_words_09.mp3"}]</script>
+      <script type="application/json" class="saysee-data">[{"ja": "金閣寺に行きたいです。", "kana": "きんかくじにいきたいです", "romaji": "Kinkakuji ni ikitai desu", "src": "l04_say_01.mp3"}, {"ja": "北口はどこですか？", "kana": "きたぐちはどこですか", "romaji": "Kitaguchi wa doko desu ka?", "src": "l04_say_02.mp3"}, {"ja": "すみません、わかりません。", "kana": "すみませんわかりません", "romaji": "Sumimasen, wakarimasen", "src": "l04_say_03.mp3"}, {"ja": "出口", "kana": "でぐち", "romaji": "Deguchi", "src": "l04_words_01.mp3"}, {"ja": "北口", "kana": "きたぐち", "romaji": "Kitaguchi", "src": "l04_words_02.mp3"}, {"ja": "南口", "kana": "みなみぐち", "romaji": "Minamiguchi", "src": "l04_words_03.mp3"}, {"ja": "東口", "kana": "ひがしぐち", "romaji": "Higashiguchi", "src": "l04_words_04.mp3"}, {"ja": "西口", "kana": "にしぐち", "romaji": "Nishiguchi", "src": "l04_words_05.mp3"}, {"ja": "トイレ", "kana": "といれ", "romaji": "Toire", "src": "l04_words_06.mp3"}, {"ja": "エレベーター", "kana": "えれべーたー", "romaji": "Erebeetaa", "src": "l04_words_07.mp3"}, {"ja": "コインロッカー", "kana": "こいんろっかー", "romaji": "Koin-rokkaa", "src": "l04_words_08.mp3"}, {"ja": "まっすぐ", "kana": "まっすぐ", "romaji": "Massugu", "src": "l04_words_09.mp3"}, {"ja": "わかりません", "kana": "わかりません", "romaji": "Wakarimasen"}]</script>
     </div>
   </div>
 
@@ -323,7 +323,7 @@ details.answer p{color:#0F6E56;font-weight:800;padding:4px 0 0}
         if(entry.kana){keys = keys.concat(speechKeys(entry.kana));}
         keys.forEach(function(key){
           if(!byPhrase[key]){byPhrase[key] = entry;}
-          searchable.push({key:key, entry:entry});
+          if(entry.src){searchable.push({key:key, entry:entry});}
         });
       });
       if(!Recognition || !entries.length){
